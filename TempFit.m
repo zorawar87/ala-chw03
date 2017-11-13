@@ -1,9 +1,12 @@
 format;
 clc;
+
 Data = importdata('GlobalTemps.txt');
 x = Data(:,1);  % x data is the year
 y = Data(:,2);  % y data is the global temperature anomaly
 [m,n] = size(Data);
+
+% Set up A 
 A = ones(m,n);
 A(:,1)=x;
 [Q,R] = QRdecomp(A);
@@ -12,7 +15,7 @@ k = solveU(R,Q'*y);
 % Plot
 figure; hold on;
 plot(x,y,'ko-','LineWidth',1,'MarkerSize',5);
-plot(x, k(1)*x+k(2));
+plot(x, k(1)*x+k(2),'ko-','LineWidth',1,'MarkerSize',5);
 hold off;
 box on;             % Makes a nice box around the plot
 xlim([1940 2017]);  % Sets the limits of the box in the x direction
